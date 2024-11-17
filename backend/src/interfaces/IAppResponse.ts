@@ -6,6 +6,6 @@
 
 export interface IAppResponse<T>{
     message:string | 'success' | 'error';
-    status:number
-    body:T;
+    status:string;
+    content:T;
 }

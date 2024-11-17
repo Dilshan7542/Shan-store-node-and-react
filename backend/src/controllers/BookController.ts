@@ -8,13 +8,14 @@ import {Book, IBook} from "../models/Book";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import {IOrder, Order} from "../models/Order";
 import {Types} from 'mongoose';
+import {ResponseCode} from "../constent/ResponseCode";
 
 export class BookController{
     saveBook:RequestHandler=async (req, res, next)=>{
         try {
             let body = req.body as IBook;
             let newVar =await new Book<IBook>(body).save();
-            return res.status(200).json({message:'success',status:200,body:newVar});
+            return res.status(200).json({message:'success',status: ResponseCode.SUCCESS,body:newVar});
 
         }catch (e){
             next(e);
@@ -23,7 +24,7 @@ export class BookController{
     getAllBookList:RequestHandler=async (req, res:Response<IAppResponse<IBook[]>>, next)=>{
         try {
             let bookList = await Book.find<IBook>().exec();
-            return res.status(200).json({status:200,message:'success',body:bookList});
+            return res.status(200).json({status: "R000",message:'success',content:bookList});
         }catch (e){
                 next(e);
         }
@@ -82,7 +83,7 @@ export class BookController{
             }
 
         ]).exec();
-            return res.status(200).json({message:'success',status:200,body:iOrders});
+            return res.status(200).json({message:'success',status: ResponseCode.SUCCESS,content:iOrders});
         }catch (e){
             next(e);
         }

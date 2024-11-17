@@ -5,13 +5,15 @@
  */
 import {NextFunction, Request, RequestHandler, Response, Router} from "express";
 import {IAppResponse} from "../interfaces/IAppResponse";
+import {ResponseCode} from "../constent/ResponseCode";
 export interface IAppError extends Error{
     status:number
 }
 
 export const errorHandler=(err:IAppError,req:Request,resp:Response<IAppResponse<null>>,next:NextFunction)=>{
     console.log(err.stack);
-    const status = err.status || 500;
+    const status =ResponseCode.NO_DATA_FOUND;
+        const statusCode = err.status || 500;
     const message = err.message || 'Internal Server Error';
-    return resp.status(status).json({body:null,message:message,status});
+    return resp.status(statusCode).json({content:null,message:message,status});
 }

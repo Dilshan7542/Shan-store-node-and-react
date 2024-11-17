@@ -8,6 +8,7 @@ import {Student, IStudent} from "../models/Student";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import mongoose from "mongoose";
 import tryCatch from "../util/try-catch";
+import {ResponseCode} from "../constent/ResponseCode";
 
 export class CustomerController {
     getAllCustomer: RequestHandler = tryCatch(async (req: Request, resp: Response) => {
@@ -55,7 +56,7 @@ export class CustomerController {
     }
 
     customerSuccess<T>(resp: Response<IAppResponse<T>>, body: T) {
-        return resp.status(200).json({message: 'success', body: body, status: 200});
+        return resp.status(200).json({message: 'success', content: body,status: ResponseCode.SUCCESS});
     }
 
 }

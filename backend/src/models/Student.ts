@@ -11,7 +11,7 @@ interface IStudent extends Document {
 const studentSchema = new Schema<IStudent>({
     studentID:{
       type:String,
-      required:true
+      required:false
     },
     name: {
         type: String,

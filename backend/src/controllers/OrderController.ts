@@ -9,6 +9,7 @@ import mongoose, {Types} from "mongoose";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import {IOrderDetail, OrderDerail} from "../models/OrderDetail";
 import { format } from "date-fns";
+import {ResponseCode} from "../constent/ResponseCode";
 
 interface IOrderWithDetail extends IOrder {
     orderDetail: IOrderDetail[]
@@ -19,7 +20,7 @@ export class OrderController {
     getOrderList: RequestHandler = async (req, res: Response<IAppResponse<IOrder[]>>, next) => {
         try {
           let orderList = await  Order.find<IOrder>({studentID:req.params['studentID']}).exec();
-            return res.status(200).json({status: 200, message: 'success', body: orderList});
+            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: orderList});
         } catch (e) {
             next(e);
         }
@@ -43,7 +44,7 @@ export class OrderController {
             await OrderDerail.insertMany(body.orderDetail);
             await session.commitTransaction();
             await session.endSession();
-            return res.status(200).json({status:200,message:'success',body:order});
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:order});
         } catch (e) {
             console.log('tran failed')
             await session.abortTransaction();
@@ -66,7 +67,6 @@ export class OrderController {
                         foreignField:'orderID',
                         as:'orderDetails',
                     },
-
 
                 },
                 { $unwind: '$orderDetails' },
@@ -108,7 +108,7 @@ export class OrderController {
 
             ]).exec();
             console.log(iOrders);
-            return res.status(200).json({message:'success',status:200,body:iOrders});
+            return res.status(200).json({message:'success',status:ResponseCode.SUCCESS,content:iOrders});
         }catch (e){
             next(e);
         }

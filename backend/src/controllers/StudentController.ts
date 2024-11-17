@@ -6,13 +6,14 @@
 import {RequestHandler,Response} from "express";
 import {IStudent, Student} from "../models/Student";
 import {IAppResponse} from "../interfaces/IAppResponse";
+import {ResponseCode} from "../constent/ResponseCode";
 
 export class StudentController {
     saveStudent:RequestHandler=async (req, res:Response<IAppResponse<IStudent>>, next)=>{
                 try {
                     let body = req.body as IStudent;
                     let newVar:IStudent = await new Student<IStudent>(body).save();
-                        res.status(200).json({status:200,message:'success',body:newVar});
+                        res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:newVar});
                 }catch (e){
                     next(e);
                 }
@@ -20,7 +21,7 @@ export class StudentController {
     searchStudentByRefId:RequestHandler=async (req, res:Response<IAppResponse<IStudent | null>>, next)=>{
         try {
                   const student = await  Student.findOne<IStudent>({_id:req.params['_id']});
-                      return res.status(200).json({status:200,message:'success',body:student});
+                      return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:student});
 
         }catch (e){
             next(e);
@@ -29,7 +30,7 @@ export class StudentController {
     getAllStudent:RequestHandler=async (req, res:Response<IAppResponse<IStudent[] | null>>, next)=>{
         try {
             let studentList =await Student.find<IStudent>().exec();
-            return res.status(200).json({status:200,message:'success',body:studentList});
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:studentList});
         }catch (e){
             next(e);
         }
