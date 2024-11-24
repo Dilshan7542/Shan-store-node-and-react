@@ -4,24 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/constent/ResponseCode.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/BookController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BookController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/CustomerController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/CustomerController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/OrderController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/OrderController.ts" afterDir="false" />
+    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="add some bugs">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/StudentController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/StudentController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/IAppResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/IAppResponse.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/ErrorHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/ErrorHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Student.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Student.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/StudentRouters.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/StudentRouters.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,23 +50,23 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.AppRoutes.ts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dilshan_k/Desktop/DLB",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "D:\\My Projects\\Node-JS\\Shan-store-node-and-react\\backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.AppRoutes.ts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dilshan_k/Desktop/DLB&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\My Projects\\Node-JS\\Shan-store-node-and-react\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -123,11 +109,26 @@
       <workItem from="1731170190594" duration="2787000" />
       <workItem from="1731297974948" duration="9000" />
       <workItem from="1731298538684" duration="2000" />
-      <workItem from="1731861450935" duration="6613000" />
+      <workItem from="1731861450935" duration="6749000" />
+      <workItem from="1731902496309" duration="80000" />
+      <workItem from="1732379445481" duration="11950000" />
     </task>
+    <task id="LOCAL-00001" summary="add some bugs">
+      <option name="closed" value="true" />
+      <created>1731871807557</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731871807557</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="add some bugs" />
   </component>
 </project>

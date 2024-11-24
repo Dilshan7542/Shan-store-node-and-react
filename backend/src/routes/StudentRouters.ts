@@ -21,7 +21,7 @@ export default class StudentRouters {
                 this.router.get('/search/:_id',this.studentController.searchStudentByRefId);
                 this.router.post('/',this.studentController.saveStudent);
                 this.router.put('/',this.studentController.updateStudent);
-                this.router.delete('/',this.studentController.deleteStudent);
+                this.router.delete('/:_id',this.studentController.deleteStudent);
             }
             getRoute(){
         return this.router;
