@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="add some bugs">
+    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="update student controller">
+      <change afterPath="$PROJECT_DIR$/src/types/response.interface.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/StudentController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/StudentController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/StudentRouters.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/StudentRouters.ts" afterDir="false" />
     </list>
@@ -111,7 +114,8 @@
       <workItem from="1731298538684" duration="2000" />
       <workItem from="1731861450935" duration="6749000" />
       <workItem from="1731902496309" duration="80000" />
-      <workItem from="1732379445481" duration="11950000" />
+      <workItem from="1732379445481" duration="11983000" />
+      <workItem from="1732435312363" duration="12989000" />
     </task>
     <task id="LOCAL-00001" summary="add some bugs">
       <option name="closed" value="true" />
@@ -121,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731871807557</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update student controller">
+      <option name="closed" value="true" />
+      <created>1732410741116</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732410741116</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +141,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add some bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add some bugs" />
+    <MESSAGE value="update student controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="update student controller" />
   </component>
 </project>

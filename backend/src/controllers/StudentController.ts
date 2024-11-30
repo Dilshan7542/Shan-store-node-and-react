@@ -3,22 +3,33 @@
  @project :point-of-sale-node
  @date    :7/21/2024
  */
-import {RequestHandler, Response} from "express";
+import {NextFunction, RequestHandler, Response} from "express";
 import {IStudent, Student} from "../models/Student";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import {ResponseCode} from "../constent/ResponseCode";
-
+import {Pagination} from "../types/response.interface";
+export interface IStudentResponse extends Pagination{
+    studentList:IStudent[]
+}
 export class StudentController {
-    saveStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudent[]>>, next) => {
+    readonly pageNo="pageNo";
+    saveStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse>>, next) => {
         try {
             let body = req.body as IStudent;
             await new Student<IStudent>(body).save();
-            const studentList = await this.getAllStudentHandler();
-            res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: studentList});
+       //  await   Student.insertMany(req.body);
+            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
+            let iStudentResponse:IStudentResponse={
+                studentList:studentList,
+                pageNo:0,
+                configCount:0
+            }
+            res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
         }
     }
+
     searchStudentByRefId: RequestHandler = async (req, res: Response<IAppResponse<IStudent | null>>, next) => {
         try {
             const student = await Student.findOne<IStudent>({_id: req.params['_id']});
@@ -31,18 +42,25 @@ export class StudentController {
     getAllStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudent[] | null>>, next) => {
         try {
 
-            let studentList = await this.getAllStudentHandler();
+            let studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
             return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: studentList});
         } catch (e) {
             next(e);
         }
     }
 
-    async getAllStudentHandler() {
+    async getAllStudentHandler(pageNoValue:string) {
         try {
-            return await Student.find<IStudent>().exec();
+            const pageNo=+pageNoValue ||1;
+            const pageSize=5;
+            let totalStudent = await Student.countDocuments().exec();
+            const totalPage=Math.ceil(totalStudent/pageSize);
+            if(pageNo>totalPage || pageNo<1){
+                throw new Error("Invalid Page Number");
+            }
+            return await Student.find<IStudent>().skip((pageNo-1)*pageSize).limit(pageSize).exec();
         } catch (e) {
-            throw e;
+          throw e;
         }
     }
 
@@ -53,7 +71,7 @@ export class StudentController {
                 new: true,
                 runValidators: true
             });
-            const studentList = await this.getAllStudentHandler();
+            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
             return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: studentList});
         } catch (e) {
             next(e);
@@ -66,7 +84,7 @@ export class StudentController {
                 return res.status(404).json({success: false, message: "Student not found"});
             }
             await student.deleteOne();
-            const studentList = await this.getAllStudentHandler();
+            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
             return res.status(200).json({
                 status: ResponseCode.SUCCESS,
                 message: 'Student deleted successfully',
