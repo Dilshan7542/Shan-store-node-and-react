@@ -9,3 +9,10 @@ export interface IAppResponse<T>{
     status:string;
     content:T;
 }
+export interface Pagination{
+    rowCount:number;
+    totalPage:number;
+    totalRecode:number;
+    pageNo:number;
+}
+

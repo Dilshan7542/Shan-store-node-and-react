@@ -8,7 +8,7 @@ import {Student, IStudent} from "../models/Student";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import mongoose from "mongoose";
 import tryCatch from "../util/try-catch";
-import {ResponseCode} from "../constent/ResponseCode";
+import {ResponseCode} from "../constant/ResponseCode";
 
 export class CustomerController {
     getAllCustomer: RequestHandler = tryCatch(async (req: Request, resp: Response) => {

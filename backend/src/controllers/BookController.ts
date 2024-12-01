@@ -8,7 +8,7 @@ import {Book, IBook} from "../models/Book";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import {IOrder, Order} from "../models/Order";
 import {Types} from 'mongoose';
-import {ResponseCode} from "../constent/ResponseCode";
+import {ResponseCode} from "../constant/ResponseCode";
 
 export class BookController{
     saveBook:RequestHandler=async (req, res, next)=>{

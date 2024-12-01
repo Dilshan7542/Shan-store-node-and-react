@@ -17,11 +17,11 @@ export default class StudentRouters {
     }
 
     private configRoute(){
-                this.router.get("/:pageNo",this.studentController.getAllStudent);
+                this.router.get("/:rowCount/:pageNo",this.studentController.getAllStudent);
                 this.router.get('/search/:_id',this.studentController.searchStudentByRefId);
-                this.router.post('/:pageNo',this.studentController.saveStudent);
-                this.router.put('/:pageNo',this.studentController.updateStudent);
-                this.router.delete('/:_id/:pageNo',this.studentController.deleteStudent);
+                this.router.post('/:rowCount/:pageNo',this.studentController.saveStudent);
+                this.router.put('/:rowCount/:pageNo',this.studentController.updateStudent);
+                this.router.delete('/:_id/:rowCount/:pageNo',this.studentController.deleteStudent);
             }
             getRoute(){
         return this.router;

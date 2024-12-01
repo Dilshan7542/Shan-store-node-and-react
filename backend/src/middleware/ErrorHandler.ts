@@ -5,7 +5,7 @@
  */
 import {NextFunction, Request, RequestHandler, Response, Router} from "express";
 import {IAppResponse} from "../interfaces/IAppResponse";
-import {ResponseCode} from "../constent/ResponseCode";
+import {ResponseCode} from "../constant/ResponseCode";
 export interface IAppError extends Error{
     status:number
 }

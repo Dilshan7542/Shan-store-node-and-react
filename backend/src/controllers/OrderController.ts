@@ -9,7 +9,7 @@ import mongoose, {Types} from "mongoose";
 import {IAppResponse} from "../interfaces/IAppResponse";
 import {IOrderDetail, OrderDerail} from "../models/OrderDetail";
 import { format } from "date-fns";
-import {ResponseCode} from "../constent/ResponseCode";
+import {ResponseCode} from "../constant/ResponseCode";
 
 interface IOrderWithDetail extends IOrder {
     orderDetail: IOrderDetail[]

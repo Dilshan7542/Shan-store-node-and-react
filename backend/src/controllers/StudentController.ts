@@ -5,25 +5,22 @@
  */
 import {NextFunction, RequestHandler, Response} from "express";
 import {IStudent, Student} from "../models/Student";
-import {IAppResponse} from "../interfaces/IAppResponse";
-import {ResponseCode} from "../constent/ResponseCode";
-import {Pagination} from "../types/response.interface";
+import {IAppResponse, Pagination} from "../interfaces/IAppResponse";
+import {ResponseCode} from "../constant/ResponseCode";
+import {AppConstant, ResponseParam} from "../constant/AppConstant";
+import {ParamsDictionary} from "express-serve-static-core";
+
 export interface IStudentResponse extends Pagination{
     studentList:IStudent[]
 }
 export class StudentController {
-    readonly pageNo="pageNo";
     saveStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse>>, next) => {
         try {
             let body = req.body as IStudent;
             await new Student<IStudent>(body).save();
+
        //  await   Student.insertMany(req.body);
-            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
-            let iStudentResponse:IStudentResponse={
-                studentList:studentList,
-                pageNo:0,
-                configCount:0
-            }
+            const iStudentResponse = await this.getAllStudentHandler(req.params);
             res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
@@ -32,47 +29,56 @@ export class StudentController {
 
     searchStudentByRefId: RequestHandler = async (req, res: Response<IAppResponse<IStudent | null>>, next) => {
         try {
-            const student = await Student.findOne<IStudent>({_id: req.params['_id']});
+            const student = await Student.findOne<IStudent>({_id: req.params[ResponseParam.ID]});
             return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: student});
 
         } catch (e) {
             next(e);
         }
     }
-    getAllStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudent[] | null>>, next) => {
+    getAllStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse | null>>, next) => {
         try {
 
-            let studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
-            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: studentList});
+            const iStudentResponse = await this.getAllStudentHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
         }
     }
 
-    async getAllStudentHandler(pageNoValue:string) {
+    async getAllStudentHandler(param:ParamsDictionary) {
         try {
-            const pageNo=+pageNoValue ||1;
-            const pageSize=5;
+            const pageNo=+ param[ResponseParam.PAGE_NO] ||1;
+            let pageSize=+ param[ResponseParam.ROW_COUNT] || 10;
+            pageSize=pageSize < 20 ? pageSize:20;
             let totalStudent = await Student.countDocuments().exec();
             const totalPage=Math.ceil(totalStudent/pageSize);
             if(pageNo>totalPage || pageNo<1){
                 throw new Error("Invalid Page Number");
             }
-            return await Student.find<IStudent>().skip((pageNo-1)*pageSize).limit(pageSize).exec();
+             const studentList = await Student.find<IStudent>().skip((pageNo-1)*pageSize).limit(pageSize).exec();
+            return {
+                studentList:studentList,
+                totalPage:totalPage,
+                rowCount:pageSize,
+                totalRecode:totalStudent,
+                pageNo:pageNo
+            } as IStudentResponse;
+
         } catch (e) {
           throw e;
         }
     }
 
-    updateStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudent[]>>, next) => {
+    updateStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse>>, next) => {
         try {
             const student = req.body as IStudent;
             const query = await Student.findByIdAndUpdate(student._id, student, {
                 new: true,
                 runValidators: true
             });
-            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
-            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: studentList});
+            const iStudentResponse = await this.getAllStudentHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
         }
@@ -84,7 +90,7 @@ export class StudentController {
                 return res.status(404).json({success: false, message: "Student not found"});
             }
             await student.deleteOne();
-            const studentList = await this.getAllStudentHandler(req.params[this.pageNo]);
+            const studentList = await this.getAllStudentHandler(req.params);
             return res.status(200).json({
                 status: ResponseCode.SUCCESS,
                 message: 'Student deleted successfully',
