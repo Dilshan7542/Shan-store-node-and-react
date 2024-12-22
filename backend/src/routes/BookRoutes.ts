@@ -17,6 +17,7 @@ export class BookRoutes{
     private configRoute() {
         this.router.get('/:rowCount/:pageNo',this.bookController.getAllBookList);
       this.router.put('/:rowCount',this.bookController.updateBook);
+      this.router.delete('/:rowCount/:_id',this.bookController.deleteBook);
         this.router.get('/studentId/:studentID',this.bookController.getAllBookByStudentRefId);
         this.router.post('/:rowCount',this.bookController.saveBook);
     }

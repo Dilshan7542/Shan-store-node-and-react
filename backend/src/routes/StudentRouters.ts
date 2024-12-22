@@ -22,7 +22,7 @@ export default class StudentRouters {
                 this.router.post('/:rowCount',this.studentController.saveStudent);
                 this.router.post('/search/sort',this.studentController.sortStudentController);
                 this.router.put('/:rowCount',this.studentController.updateStudent);
-                this.router.delete('/:_id/:rowCount',this.studentController.deleteStudent);
+                this.router.delete('/:rowCount/:_id',this.studentController.deleteStudent);
             }
             getRoute(){
         return this.router;

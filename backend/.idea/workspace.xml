@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="update pagination">
+    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="add book controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/BookController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/BookController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/StudentController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/StudentController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Book.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Book.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/BookRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/BookRoutes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/StudentRouters.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/StudentRouters.ts" afterDir="false" />
     </list>
@@ -123,7 +121,7 @@
       <workItem from="1734069888673" duration="661000" />
       <workItem from="1734780217898" duration="3224000" />
       <workItem from="1734803752300" duration="13854000" />
-      <workItem from="1734851810563" duration="595000" />
+      <workItem from="1734851810563" duration="11046000" />
     </task>
     <task id="LOCAL-00001" summary="add some bugs">
       <option name="closed" value="true" />
@@ -157,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733075364041</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add book controller">
+      <option name="closed" value="true" />
+      <created>1734853750434</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1734853750434</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +174,7 @@
     <MESSAGE value="update student controller" />
     <MESSAGE value="update student controller 100%" />
     <MESSAGE value="update pagination" />
-    <option name="LAST_COMMIT_MESSAGE" value="update pagination" />
+    <MESSAGE value="add book controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="add book controller" />
   </component>
 </project>

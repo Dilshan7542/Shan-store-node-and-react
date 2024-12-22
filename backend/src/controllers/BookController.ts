@@ -81,6 +81,19 @@ export class BookController{
             throw e;
         }
     }
+    deleteBook: RequestHandler = async (req, res, next) => {
+        try {
+            const book = await Book.findOne<IStudent>({_id: req.params['_id']});
+            if (!book) {
+                return res.status(404).json({success: false, message: "Book not found"});
+            }
+            await book.deleteOne();
+            let iBookResponse = await this.getAllBookHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:iBookResponse});
+        } catch (error) {
+            next(error); // Pass errors to the global error handler
+        }
+    }
 
     getAllBookByStudentRefId:RequestHandler=async (req, res: Response<IAppResponse<any>>, next)=>{
         try {
