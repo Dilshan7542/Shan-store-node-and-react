@@ -19,9 +19,10 @@ export default class StudentRouters {
     private configRoute(){
                 this.router.get("/:rowCount/:pageNo",this.studentController.getAllStudent);
                 this.router.get('/search/:_id',this.studentController.searchStudentByRefId);
-                this.router.post('/:rowCount/:pageNo',this.studentController.saveStudent);
-                this.router.put('/:rowCount/:pageNo',this.studentController.updateStudent);
-                this.router.delete('/:_id/:rowCount/:pageNo',this.studentController.deleteStudent);
+                this.router.post('/:rowCount',this.studentController.saveStudent);
+                this.router.post('/search/sort',this.studentController.sortStudentController);
+                this.router.put('/:rowCount',this.studentController.updateStudent);
+                this.router.delete('/:_id/:rowCount',this.studentController.deleteStudent);
             }
             getRoute(){
         return this.router;

@@ -26,6 +26,19 @@ export class StudentController {
             next(e);
         }
     }
+    updateStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse>>, next) => {
+        try {
+            const student = req.body as IStudent;
+            const query = await Student.findByIdAndUpdate(student._id, student, {
+                new: true,
+                runValidators: true
+            });
+            const iStudentResponse = await this.getAllStudentHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
+        } catch (e) {
+            next(e);
+        }
+    }
 
     searchStudentByRefId: RequestHandler = async (req, res: Response<IAppResponse<IStudent | null>>, next) => {
         try {
@@ -50,13 +63,14 @@ export class StudentController {
         try {
             const pageNo=+ param[ResponseParam.PAGE_NO] ||1;
             let pageSize=+ param[ResponseParam.ROW_COUNT] || 10;
+
             pageSize=pageSize < 20 ? pageSize:20;
             let totalStudent = await Student.countDocuments().exec();
             const totalPage=Math.ceil(totalStudent/pageSize);
             if(pageNo>totalPage || pageNo<1){
                 throw new Error("Invalid Page Number");
             }
-             const studentList = await Student.find<IStudent>().skip((pageNo-1)*pageSize).limit(pageSize).exec();
+             const studentList = await Student.find<IStudent>().skip((pageNo-1)*pageSize).sort({_id:-1}).limit(pageSize).exec();
             return {
                 studentList:studentList,
                 totalPage:totalPage,
@@ -69,20 +83,33 @@ export class StudentController {
           throw e;
         }
     }
-
-    updateStudent: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse>>, next) => {
+   sortStudentController: RequestHandler = async (req, res: Response<IAppResponse<IStudentResponse | null>>, next) => {
         try {
-            const student = req.body as IStudent;
-            const query = await Student.findByIdAndUpdate(student._id, student, {
-                new: true,
-                runValidators: true
-            });
-            const iStudentResponse = await this.getAllStudentHandler(req.params);
+            console.log(req.body);
+                const pageNo= req.body.pageNo;
+                let pageSize= req.body.rowCount;
+                pageSize=pageSize < 20 ? pageSize:20;
+                let totalStudent = await Student.countDocuments().exec();
+                const totalPage=Math.ceil(totalStudent/pageSize);
+                if(pageNo>totalPage || pageNo<1){
+                    throw new Error("Invalid Page Number");
+                }
+            console.log(req.body);
+                const studentList = await Student.find<IStudent>().skip((pageNo-1)*pageSize).sort(req.body.sortBy).limit(pageSize).exec();
+             const iStudentResponse= {
+                    studentList:studentList,
+                    totalPage:totalPage,
+                    rowCount:pageSize,
+                    totalRecode:totalStudent,
+                    pageNo:pageNo
+                } as IStudentResponse;
+
             return res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
         }
     }
+
     deleteStudent: RequestHandler = async (req, res, next) => {
         try {
             const student = await Student.findOne<IStudent>({_id: req.params['_id']});

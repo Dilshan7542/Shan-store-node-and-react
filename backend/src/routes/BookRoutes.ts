@@ -15,9 +15,10 @@ export class BookRoutes{
     }
 
     private configRoute() {
-        this.router.get('/',this.bookController.getAllBookList);
+        this.router.get('/:rowCount/:pageNo',this.bookController.getAllBookList);
+      this.router.put('/:rowCount',this.bookController.updateBook);
         this.router.get('/studentId/:studentID',this.bookController.getAllBookByStudentRefId);
-        this.router.post('/',this.bookController.saveBook);
+        this.router.post('/:rowCount',this.bookController.saveBook);
     }
     getRoutes(){
        return  this.router;

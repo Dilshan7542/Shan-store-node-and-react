@@ -5,30 +5,83 @@
  */
 import {RequestHandler,Response,Request} from "express";
 import {Book, IBook} from "../models/Book";
-import {IAppResponse} from "../interfaces/IAppResponse";
+import {IAppResponse, Pagination} from "../interfaces/IAppResponse";
 import {IOrder, Order} from "../models/Order";
 import {Types} from 'mongoose';
 import {ResponseCode} from "../constant/ResponseCode";
-
+import {ParamsDictionary} from "express-serve-static-core";
+import {ResponseParam} from "../constant/AppConstant";
+import {IStudent, Student} from "../models/Student";
+import {IStudentResponse} from "./StudentController";
+export interface IBookResponse extends Pagination{
+    bookList:IBook[]
+}
 export class BookController{
     saveBook:RequestHandler=async (req, res, next)=>{
         try {
             let body = req.body as IBook;
-            let newVar =await new Book<IBook>(body).save();
-            return res.status(200).json({message:'success',status: ResponseCode.SUCCESS,body:newVar});
-
+            const lastBook = await Book.find<IBook>().sort({ bookID: -1 }).limit(1).exec();
+            console.log(lastBook[0].bookID);
+            let generateID="0";
+            if(lastBook.length>0){
+                generateID=(+lastBook[0].bookID +2)+"";
+            }
+            body.bookID=generateID;
+            await new Book<IBook>(body).save();
+            let iBookResponse = await this.getAllBookHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:iBookResponse});
         }catch (e){
             next(e);
         }
     }
-    getAllBookList:RequestHandler=async (req, res:Response<IAppResponse<IBook[]>>, next)=>{
+    updateBook: RequestHandler = async (req, res: Response<IAppResponse<IBookResponse>>, next) => {
         try {
-            let bookList = await Book.find<IBook>().exec();
-            return res.status(200).json({status: "R000",message:'success',content:bookList});
+            const book = req.body as IBook;
+            const query = await Book.findByIdAndUpdate(book._id, book, {
+                new: true,
+                runValidators: true
+            });
+            let iBookResponse = await this.getAllBookHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:iBookResponse});
+        } catch (e) {
+            next(e);
+        }
+    }
+    getAllBookList:RequestHandler=async (req, res:Response<IAppResponse<IBookResponse>>, next)=>{
+        try {
+            let iBookResponse = await this.getAllBookHandler(req.params);
+            return res.status(200).json({status: ResponseCode.SUCCESS,message:'success',content:iBookResponse});
         }catch (e){
                 next(e);
         }
     }
+
+    async getAllBookHandler(param:ParamsDictionary) {
+        try {
+            const pageNo=+ param[ResponseParam.PAGE_NO] ||1;
+            let pageSize=+ param[ResponseParam.ROW_COUNT] || 10;
+
+            pageSize=pageSize < 20 ? pageSize:20;
+            let totalBook = await Book.countDocuments().exec();
+            const totalPage=Math.ceil(totalBook/pageSize);
+            if(pageNo>totalPage || pageNo<1){
+                throw new Error("Invalid Page Number");
+            }
+
+            const bookList = await Book.find<IBook>().skip((pageNo-1)*pageSize).sort({_id:-1}).limit(pageSize).exec();
+            return {
+                bookList:bookList,
+                totalPage:totalPage,
+                rowCount:pageSize,
+                totalRecode:totalBook,
+                pageNo:pageNo
+            } as IBookResponse;
+
+        } catch (e) {
+            throw e;
+        }
+    }
+
     getAllBookByStudentRefId:RequestHandler=async (req, res: Response<IAppResponse<any>>, next)=>{
         try {
         let studentID = req.params['studentID'];

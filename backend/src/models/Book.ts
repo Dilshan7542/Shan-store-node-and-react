@@ -13,7 +13,7 @@ import mongoose, {Document, Schema} from "mongoose";
         price: number;
     }
 const bookSchema=new Schema<IBook>({
-    bookID: { type: String, required: true },
+    bookID: { type: String, required: false },
     name: { type: String, required: true },
     author: { type: String, required: true },
     description: { type: String, required: true },
