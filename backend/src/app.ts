@@ -10,6 +10,7 @@ import cors from 'cors';
 import {json, urlencoded} from "body-parser";
 import {errorHandler} from "./middleware/ErrorHandler";
 import routers from "./routes/AppRoutes";
+import {AuthController} from "./controllers/AuthController";
 
 config();
 
@@ -17,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use(urlencoded({extended:true}));
-app.use('/',routers)
+app.use('/',routers);
 app.use(errorHandler);
 if(process.env.DB_URL) {
     db.connect(process.env.DB_URL).then(resp => {
@@ -25,6 +26,7 @@ if(process.env.DB_URL) {
         app.listen(process.env.SERVER_PORT, () => {
             console.log('Connected PORT : '+process.env.SERVER_PORT);
         });
+
     }).catch(er => {
         console.log('error connecting DB',er);
     })
