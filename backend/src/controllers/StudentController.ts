@@ -21,7 +21,7 @@ export class StudentController {
 
        //  await   Student.insertMany(req.body);
             const iStudentResponse = await this.getAllStudentHandler(req.params);
-            res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
+         return    res.status(200).json({status: ResponseCode.SUCCESS, message: 'success', content: iStudentResponse});
         } catch (e) {
             next(e);
         }
