@@ -20,8 +20,8 @@ private auth=new AuthController();
         this.router.get('/:rowCount/:pageNo',this.bookController.getAllBookList);
       this.router.put('/:rowCount',this.auth.validateToken,this.auth.checkRole([UserRole.ADMIN]),this.bookController.updateBook);
       this.router.delete('/:rowCount/:_id',this.auth.validateToken,this.auth.checkRole([UserRole.ADMIN]),this.bookController.deleteBook);
-        this.router.get('/studentId/:studentID',this.bookController.getAllBookByStudentRefId);
-        this.router.post('/:rowCount',this.bookController.saveBook);
+        this.router.get('/studentId/:studentID',this.auth.validateToken,this.bookController.getAllBookByStudentRefId);
+        this.router.post('/:rowCount',this.auth.validateToken,this.bookController.saveBook);
     }
     getRoutes(){
        return  this.router;

@@ -17,10 +17,9 @@ export class AuthController {
   }
 validateToken:RequestHandler=async (req, res, next)=>{
     const header = req.header("Authorization");
-  console.log(header)
     if(header && header.startsWith("Bearer") && header.length> 20){
-    const verify = JWT.verify(header.substring(7),this.jwtsecret) as AuthUser;
     try {
+    const verify = JWT.verify(header.substring(7),this.jwtsecret) as AuthUser;
       const user = await User.findById(verify._id).exec();
       if(user){
       // @ts-ignore
@@ -45,8 +44,9 @@ validateToken:RequestHandler=async (req, res, next)=>{
       console.log(authUser);
      if(!requiredRoles.includes(authUser.role)){
         return res.status(403).json({ message: "Access denied: insufficient permissions" ,status:ResponseCode.UNAUTHORIZED,content:null});
+     }else {
+       next();
      }
-      return next();
     };
   };
  loginUser:RequestHandler=async (req, res:Response<IAppResponse<{ token: string,name:string,role:string }>>, next)=>{
