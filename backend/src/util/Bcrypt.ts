@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 export class Bcrypt {
   static async hashPassword (pwd:string){
       const saltRounds = 10;

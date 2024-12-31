@@ -13,7 +13,8 @@ private auth=new AuthController();
   configRoutes(){
     this.router.post("/:rowCount",
       this.auth.validateToken,this.auth.checkRole([UserRole.MANAGER]),this.userController.saveUser);
-    this.router.post("/login",this.auth.loginUser);
+    this.router.post("/auth/dev",this.userController.saveUser);
+    this.router.post("/auth/login",this.auth.loginUser);
     this.router.put("/:rowCount",
       this.auth.validateToken,this.auth.checkRole([UserRole.MANAGER]),this.userController.updateUser)
   }
