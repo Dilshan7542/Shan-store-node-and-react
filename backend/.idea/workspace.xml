@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="update book component">
-      <change afterPath="$PROJECT_DIR$/src/controllers/AuthController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="bea9a50e-7dd3-499b-a9de-d556a33676f3" name="Changes" comment="add user controller">
+      <change afterPath="$PROJECT_DIR$/src/routes/AuthRoutes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/Bcrypt.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/CustomerController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/CustomerController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/AuthController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AuthController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/UserController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/BookRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/BookRoutes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/UserRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/UserRoutes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +137,7 @@
       <workItem from="1735550570937" duration="13000" />
       <workItem from="1735552532308" duration="4080000" />
       <workItem from="1735558127101" duration="4692000" />
-      <workItem from="1735618084648" duration="1277000" />
+      <workItem from="1735618084648" duration="12211000" />
     </task>
     <task id="LOCAL-00001" summary="add some bugs">
       <option name="closed" value="true" />
@@ -186,7 +187,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734900432830</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update token">
+      <option name="closed" value="true" />
+      <created>1735619644306</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1735619644306</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add user controller">
+      <option name="closed" value="true" />
+      <created>1735626807996</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1735626807997</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +216,9 @@
     <MESSAGE value="update pagination" />
     <MESSAGE value="add book controller" />
     <MESSAGE value="update book component" />
-    <option name="LAST_COMMIT_MESSAGE" value="update book component" />
+    <MESSAGE value="update token" />
+    <MESSAGE value="add user controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="add user controller" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

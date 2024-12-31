@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {BookController} from "../controllers/BookController";
 import {AuthController} from "../controllers/AuthController";
+import {UserRole} from "../models/User";
 
 /**
  @author  :Dilshan Maduranga
@@ -17,8 +18,8 @@ private auth=new AuthController();
 
     private configRoute() {
         this.router.get('/:rowCount/:pageNo',this.bookController.getAllBookList);
-      this.router.put('/:rowCount',this.auth.validateToken,this.auth.checkRole(["Admin"]),this.bookController.updateBook);
-      this.router.delete('/:rowCount/:_id',this.auth.validateToken,this.auth.checkRole(["Manager"]),this.bookController.deleteBook);
+      this.router.put('/:rowCount',this.auth.validateToken,this.auth.checkRole([UserRole.ADMIN]),this.bookController.updateBook);
+      this.router.delete('/:rowCount/:_id',this.auth.validateToken,this.auth.checkRole([UserRole.ADMIN]),this.bookController.deleteBook);
         this.router.get('/studentId/:studentID',this.bookController.getAllBookByStudentRefId);
         this.router.post('/:rowCount',this.bookController.saveBook);
     }

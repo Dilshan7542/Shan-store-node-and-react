@@ -11,7 +11,6 @@ export interface IAppError extends Error{
 }
 
 export const errorHandler=(err:IAppError,req:Request,resp:Response<IAppResponse<null>>,next:NextFunction)=>{
-    console.log(err.stack);
     const status =ResponseCode.NO_DATA_FOUND;
         const statusCode = err.status || 500;
     const message = err.message || 'Internal Server Error';

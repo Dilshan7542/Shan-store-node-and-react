@@ -1,42 +1,66 @@
 import * as JWT from "jsonwebtoken";
-import {RequestHandler} from "express";
-import {User} from "../models/User";
+import {RequestHandler, Response} from "express";
+import {User, UserRole} from "../models/User";
+import {ResponseCode} from "../constant/ResponseCode";
+import {Bcrypt} from "../util/Bcrypt";
+import {IAppResponse} from "../interfaces/IAppResponse";
 
+interface AuthUser{
+  _id:string,role:UserRole
+}
 
 export class AuthController {
   jwtsecret = process.env.JWT_SECRET!;
-  generateToken = (_id:string,role:string) => {
-    let s = JWT.sign({
-      id: _id,
-      role: role
-    }, this.jwtsecret);
+  generateToken = (auth:AuthUser) => {
+    return  JWT.sign(auth, this.jwtsecret,{expiresIn:"1d"});
   }
 validateToken:RequestHandler=async (req, res, next)=>{
     const header = req.header("Authorization");
     if(header && header.startsWith("Bearer") && header.length> 20){
-    const verify = JWT.verify(header,this.jwtsecret) as {id:string,role:string};
+    const verify = JWT.verify(header,this.jwtsecret) as AuthUser;
     try {
-      const user = await User.findById(verify.id).exec();
+      const user = await User.findById(verify._id).exec();
+      if(user){
       // @ts-ignore
-
+      req.user={
+        _id:user._id,
+        role:user.role
+      } as AuthUser;
+      }
+      next();
       }catch (e){
-      console.error("Token validation error:");
-      return next();
+      return res.status(401).json({content:null,message:"Access Denied: insufficient permissions",status:ResponseCode.UNAUTHORIZED});
     }
     }
 }
- checkRole = (requiredRoles: string[]): RequestHandler => {
-    return (req, res, next) => {
-
+ checkRole  (requiredRoles: UserRole[]): RequestHandler {
+    requiredRoles.push(UserRole.MANAGER);
+    return  (req, res:Response<IAppResponse<null>>, next) => {
       // @ts-ignore
-      const userRole = req.user?.role;
-
-      if (!userRole || !requiredRoles.includes(userRole)) {
-        return res.status(403).json({ message: "Access denied: insufficient permissions" });
-      }
-
-      next();
+      const authUser = req.user as AuthUser;
+     if(!requiredRoles.includes(authUser.role)){
+        return res.status(403).json({ message: "Access denied: insufficient permissions" ,status:ResponseCode.UNAUTHORIZED,content:null});
+     }
+      return next();
     };
   };
-
+ loginUser:RequestHandler=async (req, res:Response<IAppResponse<{ token: string }>>, next)=>{
+   const credential = req.body as {name:string,password:string};
+   try {
+     let user = await User.findOne({name:credential.name});
+     if(user){
+       if (await Bcrypt.comparePassword(credential.password, user.password)) {
+        return res.status(200)
+          .json({
+            message: "Success",
+            status:ResponseCode.SUCCESS,
+            content:{token: this.generateToken({_id:user._id,role:user.role})}});
+       }else{
+        return  next(new Error("Invalid Password"))
+       }
+     }
+   }catch (e){
+    return  next(new Error("Invalid User Name"))
+   }
+}
 }
